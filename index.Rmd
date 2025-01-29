@@ -1,0 +1,17 @@
+--- 
+title: "Preserving Public Helath Data"
+# author:
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+# bibliography: [book.bib, packages.bib]
+# url:
+# cover-image:
+# description:
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# About
+
+This Bookdown is a guide to preserving public health data, from planning to storage and dissemination. To navigate, click on the headings in the table of contents at the left.

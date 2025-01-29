@@ -1,0 +1,31 @@
+# Downloading live sites and data
+
+## Determining what to download
+
+### File path reverse engineering
+
+### Inspecting network requests
+
+## Utilities for downloading
+
+### Command-line utilities
+
+#### wget
+
+#### curl
+
+#### aria2
+
+#### wget
+
+### R
+
+#### httr
+
+#### system
+
+### Python
+
+#### Requests
+
+# Worked examples

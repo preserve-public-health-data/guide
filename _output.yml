@@ -1,0 +1,5 @@
+bookdown::gitbook:
+  toc_depth: 3
+  config:
+    toc:
+      collapse: subsubsection
