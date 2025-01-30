@@ -22,7 +22,7 @@
 
 
 
-<meta name="date" content="2025-01-29" />
+<meta name="date" content="2025-01-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -172,7 +172,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#using-the-cdx-api"><i class="fa fa-check"></i><b>6.3</b> Using the CDX API</a>
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#querying-the-cdx-api"><i class="fa fa-check"></i><b>6.3.1</b> Querying the CDX API</a></li>
-<li class="chapter" data-level="6.3.2" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#examples"><i class="fa fa-check"></i><b>6.3.2</b> Examples</a></li>
+<li class="chapter" data-level="6.3.2" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#reconstructing-the-wayback-machine-url-from-cdx-api-output"><i class="fa fa-check"></i><b>6.3.2</b> Reconstructing the Wayback Machine URL from CDX API output</a></li>
+<li class="chapter" data-level="6.3.3" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#examples"><i class="fa fa-check"></i><b>6.3.3</b> Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#common-pitfalls"><i class="fa fa-check"></i><b>6.4</b> Common pitfalls</a>
 <ul>
@@ -244,8 +245,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Most common requests will take the form of <code>http://web.archive.org/cdx/search/cdx?url=[URL]&amp;matchType=prefix</code>, which will return all URLs beginning with <code>[URL]</code>. Outputs are sorted by URL and date.</p>
 </div>
-<div id="examples" class="section level3 hasAnchor" number="6.3.2">
-<h3><span class="header-section-number">6.3.2</span> Examples<a href="downloading-from-the-internet-archive.html#examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="reconstructing-the-wayback-machine-url-from-cdx-api-output" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Reconstructing the Wayback Machine URL from CDX API output<a href="downloading-from-the-internet-archive.html#reconstructing-the-wayback-machine-url-from-cdx-api-output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using only the <code>timestamp</code> and <code>original</code> fields, we can reconstruct archived URLs of the results returned by the CDX API as using the following template:</p>
+<p><code>https://web.archive.org/web/[TIMESTAMP]/[ORIGINAL]</code></p>
+<p>where <code>[TIMESTAMP]</code> and <code>[ORIGINAL]</code> are the <code>timestamp</code> and <code>original</code> fields, respectively.</p>
+</div>
+<div id="examples" class="section level3 hasAnchor" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Examples<a href="downloading-from-the-internet-archive.html#examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Note: <code>&amp;limit=5</code> has been appended to all example request URLs.</p>
 <p><strong>Return all URLs beginning with <code>nih.gov</code></strong></p>
 <p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host" class="uri">http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host</a></p>
@@ -255,7 +262,7 @@ gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTF
 gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
 gov,nih)/ 19980204234008 http://www.nih.gov:80/ text/html 200 343MBBETTNE43WB6TJSCIIGQSPVRG6AY 1992
 gov,nih)/ 19981212031409 http://www.nih.gov:80/ text/html 200 WA4UOXZMXJYHIIYABQCZB7MXJBURXNR6 2635</code></pre>
-<p><strong>Return all URLs beginning with <code>nih.gov</code>, dropping URLs that have the same content</strong></p>
+<p><strong>Return all URLs beginning with <code>nih.gov</code> <em>with unique content</em></strong></p>
 <p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=digest" class="uri">http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=digest</a></p>
 <p>Response:</p>
 <pre><code>gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
@@ -264,7 +271,7 @@ gov,nih)/ 19981212031409 http://www.nih.gov:80/ text/html 200 WA4UOXZMXJYHIIYABQ
 gov,nih)/ 19990117023817 http://nih.gov:80/ text/html 200 4LFPLNNQ67M6LJT3LZBBNT3RNZKUJLXS 2604
 gov,nih)/ 19990125091117 http://nih.gov:80/ text/html 200 VY6HRTZDJND4JKWNMAVH43OBEV5HKR5B 2744</code></pre>
 <p>Note that 3 records with duplicate content have been dropped between the previous request and this one.</p>
-<p><strong>Return all unique URLs beginning with <code>nih.gov</code></strong></p>
+<p><strong>Return all <em>unique URLs</em> beginning with <code>nih.gov</code></strong></p>
 <p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=urlkey&amp;limit=5" class="uri">http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=urlkey&amp;limit=5</a></p>
 <p>Response:</p>
 <pre><code>gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
@@ -272,7 +279,8 @@ gov,nih)/!%0d%0a%20medlinep 20210505215349 http://nih.gov/!%0D%0A%20medlinep tex
 gov,nih)/!clearcommunication/plainlanguage/index.htm 20240816204904 https://www.nih.gov/!clearcommunication/plainlanguage/index.htm text/html 404 WLBW2ZNS7QAI6LLO3D6CLUYLU5SKQEXJ 8042
 gov,nih)/!clearcommunication/plainlanguage/index.htm!figure 20240816203157 http://www.nih.gov/!clearcommunication/plainlanguage/index.htm!Figure unk 301 3I42H3S6NNFQ2MSVX7XZKYAYSCX5QBYJ 259
 gov,nih)/&quot; 20000201081541 http://www.nih.gov:80/%22 text/html 404 UDSH36NBYWO2X73LNMX2LEHLNQ7FYXHZ 326</code></pre>
-<p><strong>Return all unique PDF files (MIME type: <code>application/pdf</code>) beginning with <code>nih.gov</code></strong></p>
+<p>Note that this query will only return the first capture in each collapse group. To get the most recent capture for each group, it would be better to collapse by <code>digest</code> instead and then process the output.</p>
+<p><strong>Return all unique <em>PDF files</em> (MIME type: <code>application/pdf</code>) beginning with <code>nih.gov</code></strong></p>
 <p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=urlkey&amp;filter=mimetype:application/pdf" class="uri">http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=urlkey&amp;filter=mimetype:application/pdf</a></p>
 <p>Response:</p>
 <pre><code>gov,nih)/about/97_almanac/almanac97.pdf 20041031172700 http://www.nih.gov/about/97_Almanac/almanac97.pdf application/pdf 200 B6XAXDQ5YA2BD2FC7CWH6HLG7YAGRQT5 1412860
@@ -280,7 +288,7 @@ gov,nih)/about/almanac/2001/appropriations/appropriations2001.pdf 20041107184849
 gov,nih)/about/almanac/almanac_2006_2007.pdf 20070824135850 http://www.nih.gov/about/almanac/Almanac_2006_2007.pdf application/pdf 200 Q33VZSPQ7EUOVJ7PLGGFGLYRS4466FGV 2005821
 gov,nih)/about/almanac/almanac_2008_2009.pdf 20081029135142 http://www.nih.gov/about/almanac/Almanac_2008_2009.pdf application/pdf 200 CNYNO3S7OWTPSYCJKIT2LCJTMDKZJ3WI 2610665
 gov,nih)/about/almanac/archive/2001/appropriations/appropriations2001.pdf 20080924150457 http://www.nih.gov/about/almanac/archive/2001/appropriations/appropriations2001.pdf application/pdf 200 YQNM4XRHFNFUC3RPAERP7T6F7OWS6TDQ 49675</code></pre>
-<p><strong>The same as the previous example, but dump the URLs only</strong> (for example to feed into a download script)</p>
+<p><strong>The same as the previous example, but <em>dump the URLs only</em></strong> (for example to feed into a download tool)</p>
 <p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&amp;matchType=host&amp;collapse=digest&amp;filter=mimetype:application/pdf&amp;fl=original" class="uri">http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&amp;matchType=host&amp;collapse=digest&amp;filter=mimetype:application/pdf&amp;fl=original</a></p>
 <p>Response:</p>
 <pre><code>http://dpcpsi.nih.gov/collaboration/2007_Report_of_Trans-NIH_Research.pdf
@@ -288,6 +296,13 @@ http://dpcpsi.nih.gov/collaboration/2008_Report_of_Trans-NIH_Research.pdf
 http://dpcpsi.nih.gov/collaboration/2009_Report_of_Trans-NIH_Research.pdf
 http://dpcpsi.nih.gov/collaboration/Trans-NIH_Research.pdf
 http://dpcpsi.nih.gov/council/110807minutes.pdf</code></pre>
+<p>Note that the above URLs cannot be passed to raw downloaders like <code>wget</code>, <code>aria2</code>, etc. directly if the content is no longer live and are only usable by downloaders like <code>wayback_machine_downloader</code> and <code>waybackpack</code> that are specific to the Internet Archive. See below for an example of how to reconstruct <code>archive.org</code> URLs that can be passed to those tools.</p>
+<p><strong>The same as the previous example, but reconstruct the <code>archive.org</code> URLs using Bash</strong> (for example to feed into a download tool)</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="downloading-from-the-internet-archive.html#cb6-1" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&amp;matchType=host&amp;collapse=digest&amp;filter=mimetype:application/pdf&amp;fl=original&quot;</span> <span class="kw">|</span></span>
+<span id="cb6-2"><a href="downloading-from-the-internet-archive.html#cb6-2" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">IFS</span><span class="op">=</span><span class="st">&quot; &quot;</span> <span class="bu">read</span> <span class="va">urlkey</span> <span class="va">timestamp</span> <span class="va">original</span> <span class="va">mimetype</span> <span class="va">statuscode</span> <span class="va">digest</span> <span class="va">length</span></span>
+<span id="cb6-3"><a href="downloading-from-the-internet-archive.html#cb6-3" tabindex="-1"></a>    <span class="cf">do</span></span>
+<span id="cb6-4"><a href="downloading-from-the-internet-archive.html#cb6-4" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">&quot;https://web.archive.org/web/</span><span class="va">${timestamp}</span><span class="st">/</span><span class="va">${original}</span><span class="st">&quot;</span></span>
+<span id="cb6-5"><a href="downloading-from-the-internet-archive.html#cb6-5" tabindex="-1"></a>    <span class="cf">done</span> <span class="co"># From here, redirect to a file or pipe to a download tool</span></span></code></pre></div>
 </div>
 </div>
 <div id="common-pitfalls" class="section level2 hasAnchor" number="6.4">
@@ -314,9 +329,9 @@ http://dpcpsi.nih.gov/council/110807minutes.pdf</code></pre>
 <li>Parse the the downloaded HTML files to identify tags of interest and the URLs that they link to.</li>
 </ol>
 <p>For example, the following <code>bash</code> + <code>htmlq</code> code will dump the URLs of images referenced by HTML files in the current directory:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="downloading-from-the-internet-archive.html#cb6-1" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">&#39;*.htm*&#39;</span> <span class="at">-print0</span> <span class="kw">|</span></span>
-<span id="cb6-2"><a href="downloading-from-the-internet-archive.html#cb6-2" tabindex="-1"></a>    <span class="fu">xargs</span> <span class="at">-0</span> cat <span class="kw">|</span></span>
-<span id="cb6-3"><a href="downloading-from-the-internet-archive.html#cb6-3" tabindex="-1"></a>    <span class="ex">htmlq</span> img <span class="at">-a</span> src</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="downloading-from-the-internet-archive.html#cb7-1" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">&#39;*.htm*&#39;</span> <span class="at">-print0</span> <span class="kw">|</span></span>
+<span id="cb7-2"><a href="downloading-from-the-internet-archive.html#cb7-2" tabindex="-1"></a>    <span class="fu">xargs</span> <span class="at">-0</span> cat <span class="kw">|</span></span>
+<span id="cb7-3"><a href="downloading-from-the-internet-archive.html#cb7-3" tabindex="-1"></a>    <span class="ex">htmlq</span> img <span class="at">-a</span> src</span></code></pre></div>
 </div>
 </div>
 <div id="worked-examples-1" class="section level2 hasAnchor" number="6.5">

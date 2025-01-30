@@ -39,6 +39,14 @@ Other useful parameters:
 
 Most common requests will take the form of `http://web.archive.org/cdx/search/cdx?url=[URL]&matchType=prefix`, which will return all URLs beginning with `[URL]`. Outputs are sorted by URL and date.
 
+### Reconstructing the Wayback Machine URL from CDX API output
+
+Using only the `timestamp` and `original` fields, we can reconstruct archived URLs of the results returned by the CDX API as using the following template:
+
+`https://web.archive.org/web/[TIMESTAMP]/[ORIGINAL]`
+
+where `[TIMESTAMP]` and `[ORIGINAL]` are the `timestamp` and `original` fields, respectively.
+
 ### Examples
 
 Note: `&limit=5` has been appended to all example request URLs.
@@ -55,7 +63,7 @@ Response:
     gov,nih)/ 19980204234008 http://www.nih.gov:80/ text/html 200 343MBBETTNE43WB6TJSCIIGQSPVRG6AY 1992
     gov,nih)/ 19981212031409 http://www.nih.gov:80/ text/html 200 WA4UOXZMXJYHIIYABQCZB7MXJBURXNR6 2635
     
-**Return all URLs beginning with `nih.gov`, dropping URLs that have the same content**
+**Return all URLs beginning with `nih.gov` _with unique content_**
 
 Request: <http://web.archive.org/cdx/search/cdx?url=nih.gov&matchType=host&collapse=digest>
 
@@ -69,7 +77,7 @@ Response:
 
 Note that 3 records with duplicate content have been dropped between the previous request and this one.
 
-**Return all unique URLs beginning with `nih.gov`**
+**Return all _unique URLs_ beginning with `nih.gov`**
 
 Request: <http://web.archive.org/cdx/search/cdx?url=nih.gov&matchType=host&collapse=urlkey&limit=5>
 
@@ -81,7 +89,9 @@ Response:
     gov,nih)/!clearcommunication/plainlanguage/index.htm!figure 20240816203157 http://www.nih.gov/!clearcommunication/plainlanguage/index.htm!Figure unk 301 3I42H3S6NNFQ2MSVX7XZKYAYSCX5QBYJ 259
     gov,nih)/" 20000201081541 http://www.nih.gov:80/%22 text/html 404 UDSH36NBYWO2X73LNMX2LEHLNQ7FYXHZ 326
 
-**Return all unique PDF files (MIME type: `application/pdf`) beginning with `nih.gov`**
+Note that this query will only return the first capture in each collapse group. To get the most recent capture for each group, it would be better to collapse by `digest` instead and then process the output.
+
+**Return all unique _PDF files_ (MIME type: `application/pdf`) beginning with `nih.gov`**
 
 Request: <http://web.archive.org/cdx/search/cdx?url=nih.gov&matchType=host&collapse=urlkey&filter=mimetype:application/pdf>
 
@@ -93,7 +103,7 @@ Response:
     gov,nih)/about/almanac/almanac_2008_2009.pdf 20081029135142 http://www.nih.gov/about/almanac/Almanac_2008_2009.pdf application/pdf 200 CNYNO3S7OWTPSYCJKIT2LCJTMDKZJ3WI 2610665
     gov,nih)/about/almanac/archive/2001/appropriations/appropriations2001.pdf 20080924150457 http://www.nih.gov/about/almanac/archive/2001/appropriations/appropriations2001.pdf application/pdf 200 YQNM4XRHFNFUC3RPAERP7T6F7OWS6TDQ 49675
 
-**The same as the previous example, but dump the URLs only** (for example to feed into a download script)
+**The same as the previous example, but _dump the URLs only_** (for example to feed into a download tool)
 
 Request: <http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&matchType=host&collapse=digest&filter=mimetype:application/pdf&fl=original>
 
@@ -104,6 +114,18 @@ Response:
     http://dpcpsi.nih.gov/collaboration/2009_Report_of_Trans-NIH_Research.pdf
     http://dpcpsi.nih.gov/collaboration/Trans-NIH_Research.pdf
     http://dpcpsi.nih.gov/council/110807minutes.pdf
+
+Note that the above URLs cannot be passed to raw downloaders like `wget`, `aria2`, etc. directly if the content is no longer live and are only usable by downloaders like `wayback_machine_downloader` and `waybackpack` that are specific to the Internet Archive. See below for an example of how to reconstruct `archive.org` URLs that can be passed to those tools.
+
+**The same as the previous example, but reconstruct the `archive.org` URLs using Bash** (for example to feed into a download tool)
+
+```bash 
+curl "http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&matchType=host&collapse=digest&filter=mimetype:application/pdf&fl=original" |
+    while IFS=" " read urlkey timestamp original mimetype statuscode digest length
+    do
+        echo "https://web.archive.org/web/${timestamp}/${original}"
+    done # From here, redirect to a file or pipe to a download tool
+```
 
 ## Common pitfalls
 

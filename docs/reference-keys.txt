@@ -28,6 +28,7 @@ querying-pages
 downloading-pages
 using-the-cdx-api
 querying-the-cdx-api
+reconstructing-the-wayback-machine-url-from-cdx-api-output
 examples
 common-pitfalls
 non-nested-websites-and-externally-linked-resources
