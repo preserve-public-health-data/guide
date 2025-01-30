@@ -1,0 +1,7 @@
+# Locating data on live websites
+
+## File path reverse engineering
+
+## Inspecting network requests
+
+## Using APIs

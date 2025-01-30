@@ -1,0 +1,76 @@
+# Tools for downloading data
+
+## Command-line utilities
+
+### Installing and using Unix shells
+
+### wget / wget2
+
+[GNU wget](https://www.gnu.org/software/wget/) and its successor [wget2](https://gitlab.com/gnuwget/wget2) are command-line download utilities supporting a wide array of protocols and with many helpful features including recursive retrieval, [WARC](https://en.wikipedia.org/wiki/WARC_(file_format)) output, URL parameters and POST data, rate limiting, and automatic retries.
+
+`wget` is designed to run non-interactively; after specifying your arguments (retrieval options) and invoking the `wget` commmand, it will run unsupervised until all specified URLs have been retrieved (and child URLs, if retrieving recursively).
+
+**Installation instructions**:
+
+- Windows: Through the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install).
+- macOS: Through [Homebrew](https://brew.sh/) (`brew install wget`) or by compiling.
+- Linux: Generally included by default; if not, consult your distribution's package repository.
+
+**Usage**
+
+**Useful command-line arguments**
+
+For an exhaustive list, see the [wget documentation](https://www.gnu.org/software/wget/manual/wget.html) or run `man wget` or `wget --help`.
+
+**Examples**
+
+### curl
+
+[curl](https://curl.se/) is another common data transfer tool that is much better suited for interactive use (for example to explore APIs, or in scripts that parse server responses) and supports a [much wider array of protocols](https://curl.se/docs/comparison-table.html). Although it _can_ also be used as a standalone download utility, it does not support recursive retrieval.
+
+**Installation instructions**:
+
+- Windows: Through the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install).
+- macOS: Included by default.
+- Linux: Generally included by default; if not, consult your distribution's package repository.
+
+**Usage**
+
+**Useful command-line arguments**
+
+For an exhaustive list, see the [curl man page](https://curl.se/docs/manpage.html) or run `man curl` or `curl --help all`.
+
+**Examples**
+
+### aria2
+
+[aria2](https://aria2.github.io/) is another command-line download tool similar to `wget` that supports fewer protocols but may be preferable for downloading a _large number of files_ for which _the URLs are known_. Unlike `wget`, `aria2` marks incomplete or errored downloads as such (allowing for automatic retries on next run and for you to quickly check file integrity at a glance) and has better support for concurrency with URL-based, domain-based, and chunk-based parallelism.
+
+**Installation instructions**:
+
+- Windows: Binaries available from the [aria2 website](https://aria2.github.io/).
+- macOS: Through [Homebrew](https://brew.sh/) (`brew install aria2`), or from the [aria2 website](https://aria2.github.io/).
+- Linux: Consult your distribution's package repository.
+
+**Usage**
+
+**Examples**
+
+## R
+
+### httr / [httr2]
+
+[httr](https://httr.r-lib.org/) and [httr2](https://httr2.r-lib.org/) are R wrappers around the `libcurl` library used by `curl`.
+
+**Usage**
+
+**Examples**
+
+## Python
+
+[requests](https://requests.readthedocs.io/en/latest/) is a generic HTTP library for Python. Unlike `httr` and `httr2` for R, `requests` does not build upon `libcurl` and instead uses [urllib3](https://pypi.org/project/urllib3/).
+
+**Usage**
+
+**Examples**
+

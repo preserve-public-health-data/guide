@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Storage and dissemination | Preserving Public Health Data</title>
-  <meta name="description" content="6 Storage and dissemination | Preserving Public Health Data" />
+  <title>3 Tools for downloading data | Preserving Public Health Data</title>
+  <meta name="description" content="3 Tools for downloading data | Preserving Public Health Data" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Storage and dissemination | Preserving Public Health Data" />
+  <meta property="og:title" content="3 Tools for downloading data | Preserving Public Health Data" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Storage and dissemination | Preserving Public Health Data" />
+  <meta name="twitter:title" content="3 Tools for downloading data | Preserving Public Health Data" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="downloading-from-the-internet-archive.html"/>
-
+<link rel="prev" href="getting-started.html"/>
+<link rel="next" href="locating-data-on-live-websites.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -200,17 +200,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="storage-and-dissemination" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">6</span> Storage and dissemination<a href="storage-and-dissemination.html#storage-and-dissemination" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="tools-for-downloading-data" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Tools for downloading data<a href="tools-for-downloading-data.html#tools-for-downloading-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="command-line-utilities" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Command-line utilities<a href="tools-for-downloading-data.html#command-line-utilities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="installing-and-using-unix-shells" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Installing and using Unix shells<a href="tools-for-downloading-data.html#installing-and-using-unix-shells" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="wget-wget2" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> wget / wget2<a href="tools-for-downloading-data.html#wget-wget2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://www.gnu.org/software/wget/">GNU wget</a> and its successor <a href="https://gitlab.com/gnuwget/wget2">wget2</a> are command-line download utilities supporting a wide array of protocols and with many helpful features including recursive retrieval, <a href="https://en.wikipedia.org/wiki/WARC_(file_format)">WARC</a> output, URL parameters and POST data, rate limiting, and automatic retries.</p>
+<p><code>wget</code> is designed to run non-interactively; after specifying your arguments (retrieval options) and invoking the <code>wget</code> commmand, it will run unsupervised until all specified URLs have been retrieved (and child URLs, if retrieving recursively).</p>
+<p><strong>Installation instructions</strong>:</p>
+<ul>
+<li>Windows: Through the <a href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux</a>.</li>
+<li>macOS: Through <a href="https://brew.sh/">Homebrew</a> (<code>brew install wget</code>) or by compiling.</li>
+<li>Linux: Generally included by default; if not, consult your distribution’s package repository.</li>
+</ul>
+<p><strong>Usage</strong></p>
+<p><strong>Useful command-line arguments</strong></p>
+<p>For an exhaustive list, see the <a href="https://www.gnu.org/software/wget/manual/wget.html">wget documentation</a> or run <code>man wget</code> or <code>wget --help</code>.</p>
+<p><strong>Examples</strong></p>
+</div>
+<div id="curl" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> curl<a href="tools-for-downloading-data.html#curl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://curl.se/">curl</a> is another common data transfer tool that is much better suited for interactive use (for example to explore APIs, or in scripts that parse server responses) and supports a <a href="https://curl.se/docs/comparison-table.html">much wider array of protocols</a>. Although it <em>can</em> also be used as a standalone download utility, it does not support recursive retrieval.</p>
+<p><strong>Installation instructions</strong>:</p>
+<ul>
+<li>Windows: Through the <a href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux</a>.</li>
+<li>macOS: Included by default.</li>
+<li>Linux: Generally included by default; if not, consult your distribution’s package repository.</li>
+</ul>
+<p><strong>Usage</strong></p>
+<p><strong>Useful command-line arguments</strong></p>
+<p>For an exhaustive list, see the <a href="https://curl.se/docs/manpage.html">curl man page</a> or run <code>man curl</code> or <code>curl --help all</code>.</p>
+<p><strong>Examples</strong></p>
+</div>
+<div id="aria2" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> aria2<a href="tools-for-downloading-data.html#aria2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://aria2.github.io/">aria2</a> is another command-line download tool similar to <code>wget</code> that supports fewer protocols but may be preferable for downloading a <em>large number of files</em> for which <em>the URLs are known</em>. Unlike <code>wget</code>, <code>aria2</code> marks incomplete or errored downloads as such (allowing for automatic retries on next run and for you to quickly check file integrity at a glance) and has better support for concurrency with URL-based, domain-based, and chunk-based parallelism.</p>
+<p><strong>Installation instructions</strong>:</p>
+<ul>
+<li>Windows: Binaries available from the <a href="https://aria2.github.io/">aria2 website</a>.</li>
+<li>macOS: Through <a href="https://brew.sh/">Homebrew</a> (<code>brew install aria2</code>), or from the <a href="https://aria2.github.io/">aria2 website</a>.</li>
+<li>Linux: Consult your distribution’s package repository.</li>
+</ul>
+<p><strong>Usage</strong></p>
+<p><strong>Examples</strong></p>
+</div>
+</div>
+<div id="r" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> R<a href="tools-for-downloading-data.html#r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="httr-httr2" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> httr / [httr2]<a href="tools-for-downloading-data.html#httr-httr2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://httr.r-lib.org/">httr</a> and <a href="https://httr2.r-lib.org/">httr2</a> are R wrappers around the <code>libcurl</code> library used by <code>curl</code>.</p>
+<p><strong>Usage</strong></p>
+<p><strong>Examples</strong></p>
+</div>
+</div>
+<div id="python" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Python<a href="tools-for-downloading-data.html#python" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://requests.readthedocs.io/en/latest/">requests</a> is a generic HTTP library for Python. Unlike <code>httr</code> and <code>httr2</code> for R, <code>requests</code> does not build upon <code>libcurl</code> and instead uses <a href="https://pypi.org/project/urllib3/">urllib3</a>.</p>
+<p><strong>Usage</strong></p>
+<p><strong>Examples</strong></p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="downloading-from-the-internet-archive.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="getting-started.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="locating-data-on-live-websites.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -10,9 +10,7 @@
 
 ## Using the CDX API
 
-If, for whatever reason, none of the above methods are available (for example on a headless server without the ability to install software), the Wayback Machine CDX API can be used in conjunction with commonly-found command-line utilities to locate files for download. The CDX API may also be useful for writing custom scripts and programs due to its minimal nature.
-
-Briefly, the CDX API allows access to the indices that the Wayback Machine uses internally to keep track of and query archived URLs.
+The Wayback Machine CDX API allows access to the indices that the Wayback Machine uses internally to keep track of and query archived URLs. If, for whatever reason, none of the above methods are available (for example on a headless server without the ability to install software), the CDX API can be used in conjunction with commonly-found command-line utilities to locate files for download. The CDX API is also useful for writing custom download scripts and programs or for exploring archived URLs.
 
 This guide will not comprehensively document the CDX API itself as the Internet Archive already maintains [extensive documentation](https://archive.org/developers/wayback-cdx-server.html) on their website.
 

@@ -14,4 +14,8 @@ github-repo: rstudio/bookdown-demo
 
 # About
 
-This Bookdown is a guide to preserving public health data, from planning to storage and dissemination. To navigate, click on the headings in the table of contents at the left.
+This Bookdown is a guide to preserving public health data (or any at-risk data for that matter), from planning to storage and dissemination. To navigate, click on the headings in the table of contents at the left.
+
+The source R Markdown files used to generate this guide are available at <https://github.com/preserve-public-health-data/guide>.
+
+Scripts and example code beyond those presented in this guide are available at <https://github.com/preserve-public-health-data/code>.
