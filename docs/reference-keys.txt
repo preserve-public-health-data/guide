@@ -17,6 +17,11 @@ inspecting-network-requests
 using-apis
 downloading-from-the-internet-archive
 using-the-wayback-machine-web-interface
+the-search-bar
+the-calendar-tab
+capture-pages
+the-site-map-tab
+the-urls-tab
 using-download-scripts
 querying-pages
 downloading-pages

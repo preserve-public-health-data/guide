@@ -2,6 +2,76 @@
 
 ## Using the Wayback Machine web interface
 
+The Wayback Machine web interface can be accessed by navigating to <https://archive.org>. More comprehensive information about the Wayback Machine is available on the [Internet Archive website](https://help.archive.org/help/category/the-wayback-machine/).
+
+### The search bar
+
+To search for content, use enter text into this search bar and press "Enter":
+
+![](images/4-search-bar.png)
+
+The text can either be:
+
+1. A complete URL pointing to a page that you want to view captures of, or
+2. A url prefix, i.e. the beginning of the URL up to the point that you typed. The prefix itself must be a valid path on its own (i.e. with a `/`).
+
+After submitting your query, you will be presented with a page similar to the one shown below.
+
+![](images/4-results-page.png)
+
+The most relevant parts of this page are the different tab links (starting with "Calendar"), the capture graph, and the capture calendar.
+
+### The Calendar tab
+
+By default, if you entered the URL of a page, you will be presented with the Calendar tab which will show the year of the most recent capture. Use the graph at the top to change the year. The graph is a histogram showing the relative frequency of captures per month.
+
+To view a capture, mouse over one of the days bubbled in green or blue. A window will pop up listing the times of captures made on that day:
+
+![](images/4-calendar-selector.png)
+
+Clicking on one of these will bring you to that capture.
+
+### Capture pages
+
+Capture pages will show how the page looked at the time of the capture. You can navigate these pages as you would a normal webpage and links will be substituted with Wayback Machine captures where possible.
+
+In addition, the Internet Archive adds a toolbar at the top of each page to aid in navigation:
+
+![](images/4-capture-page.png)
+
+You can navigate through different captures by:
+
+1. Clicking the link at the top left listing the number of captures, which will take you back to the calendar page;
+2. Clicking on one of the months in the graph, which will take you to the first capture in that month; or
+3. Using the left and right blue arrows (if any) at the top right, which will take you to the closest capture either before or after the one currently being viewed.
+
+### The Site Map tab
+
+From the main results page, you can click on "Site Map" to view the site map graph, which illustrates the different paths that branch from the current search query:
+
+![](images/4-site-map.png)
+
+You can click on any part of this graph to be brought to the most recent capture of that page.
+
+### The URLs tab
+
+The URLs tab shows all captured URLs that are nested within the current search query:
+
+![](images/4-urls.png)
+
+These results can be browsed and filtered using the pagination links at the bottom right of the page or the filter input box at the top right. Most importantly, results can be filtered by [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types/Common_types), which allow you to locate files of specific file formats.
+
+Some examples of common MIME types:
+
+- PDF files: `application/pdf`
+- ZIP archives: `application/zip` or `application/x-zip-compressed`
+- CSV files: `text/csv`
+
+Partial matches are also supported. For example:
+
+- `image/` can be used to match any image file.
+- `video/` can be used to match any video file.
+
 ## Using download scripts
 
 ### Querying pages
