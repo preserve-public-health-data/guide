@@ -22,4 +22,13 @@ python
 requests
 worked-examples
 downloading-from-the-internet-archive
+using-the-wayback-machine-web-interface
+using-download-scripts
+querying-pages
+downloading-pages
+using-cdx-api
+querying-the-cdx-api
+examples
+common-pitfalls
+worked-examples-1
 storage-and-dissemination

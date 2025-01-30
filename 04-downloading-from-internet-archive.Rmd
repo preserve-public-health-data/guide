@@ -1,1 +1,108 @@
 # Downloading from the Internet Archive
+
+## Using the Wayback Machine web interface
+
+## Using download scripts
+
+### Querying pages
+
+### Downloading pages
+
+## Using CDX API
+
+If, for whatever reason, none of the above methods are available (for example on a headless server without the ability to install software), the Wayback Machine CDX API can be used in conjunction with commonly-found command-line utilities to locate files for download. The CDX API may also be useful for writing custom scripts and programs due to its minimal nature.
+
+This guide will not comprehensively document the CDX API itself as the Internet Archive already maintains [extensive documentation](https://archive.org/developers/wayback-cdx-server.html) on their website.
+
+### Querying the CDX API
+
+The CDX API endpoint lives at <http://web.archive.org/cdx/search/cdx>. The main parameters of interest are:
+
+- `url` (string): The primary filter. Must be [precent-encoded](https://en.wikipedia.org/wiki/Percent-encoding).
+- `matchType` (string): Describes how `url` is matched. The following values will be the most useful:
+  - `exact`: Results must match `url` exactly (default if `matchType` is not provided);
+  - `prefix`: Results must begin with `url`.
+
+Other useful parameters:
+
+- `from` and `to` (integer): Filters the results by date range. Must be given in the form `YYYYMMDDhhmmss`; partial information is allowed (for example `YYYY` or `YYYYMMDD`).
+- `limit` (integer): Limits the number of results returned. The CDX API docs note that _"the CDX server may return millions or billions of record[s]"_, so this may be necessary for larger or older sites.
+- `fl` (one or more strings, comma-separated): Chooses which fields are returned, and in what order. The most useful fields are:
+  - `timestamp`: The timestamp of the capture, formatted as `YYYMMDDhhmmss`.
+  - `original`: The original URL. Not ideal for filtering due to things like port specification; see `urlkey` instead.
+  - `mimetype`: The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types/Common_types) string.
+  - `urlkey` and `"digest"`: The standardized URL and a checksum of the content, respectively. Useful for filtering out all duplicated URLs (`urlkey`) or only duplicated URLs with the same content (`digest`).
+- `collapse` (string): Filters out results by the given field, returning only the first when ordered by date. See above for fields that can be passed to `collapse`.
+- `filter` (string formatted like `[!]field:regex`): Use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) to filter based on field values.
+
+Most common requests will take the form of `http://web.archive.org/cdx/search/cdx?url=[URL]&matchType=prefix`, which will return all URLs beginning with `[URL]`. Outputs are sorted by URL and date.
+
+### Examples
+
+Note: `&limit=5` has been appended to all example request URLs.
+
+**Return all URLs beginning with `nih.gov`**
+
+Request: <http://web.archive.org/cdx/search/cdx?url=nih.gov&matchType=host>
+
+Response:
+
+    gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
+    gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
+    gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
+    gov,nih)/ 19980204234008 http://www.nih.gov:80/ text/html 200 343MBBETTNE43WB6TJSCIIGQSPVRG6AY 1992
+    gov,nih)/ 19981212031409 http://www.nih.gov:80/ text/html 200 WA4UOXZMXJYHIIYABQCZB7MXJBURXNR6 2635
+    
+**Return all URLs beginning with `nih.gov`, dropping URLs that have the same content**
+
+Request: <http://web.archive.org/cdx/search/cdx?url=nih.gov&matchType=host&collapse=digest>
+
+Response:
+
+    gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
+    gov,nih)/ 19980204234008 http://www.nih.gov:80/ text/html 200 343MBBETTNE43WB6TJSCIIGQSPVRG6AY 1992
+    gov,nih)/ 19981212031409 http://www.nih.gov:80/ text/html 200 WA4UOXZMXJYHIIYABQCZB7MXJBURXNR6 2635
+    gov,nih)/ 19990117023817 http://nih.gov:80/ text/html 200 4LFPLNNQ67M6LJT3LZBBNT3RNZKUJLXS 2604
+    gov,nih)/ 19990125091117 http://nih.gov:80/ text/html 200 VY6HRTZDJND4JKWNMAVH43OBEV5HKR5B 2744
+
+Note that 3 records with duplicate content have been dropped between the previous request and this one.
+
+**Return all unique URLs beginning with `nih.gov`**
+
+Request: <http://web.archive.org/cdx/search/cdx?url=nih.gov&matchType=host&collapse=urlkey&limit=5>
+
+Response:
+
+    gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
+    gov,nih)/!%0d%0a%20medlinep 20210505215349 http://nih.gov/!%0D%0A%20medlinep text/html 301 PAJQC5WJFC6FWJIM7WZA7WU2SW5AU43R 440
+    gov,nih)/!clearcommunication/plainlanguage/index.htm 20240816204904 https://www.nih.gov/!clearcommunication/plainlanguage/index.htm text/html 404 WLBW2ZNS7QAI6LLO3D6CLUYLU5SKQEXJ 8042
+    gov,nih)/!clearcommunication/plainlanguage/index.htm!figure 20240816203157 http://www.nih.gov/!clearcommunication/plainlanguage/index.htm!Figure unk 301 3I42H3S6NNFQ2MSVX7XZKYAYSCX5QBYJ 259
+    gov,nih)/" 20000201081541 http://www.nih.gov:80/%22 text/html 404 UDSH36NBYWO2X73LNMX2LEHLNQ7FYXHZ 326
+
+**Return all unique PDF files (MIME type: `application/pdf`) beginning with `nih.gov`**
+
+Request: <http://web.archive.org/cdx/search/cdx?url=nih.gov&matchType=host&collapse=urlkey&filter=mimetype:application/pdf>
+
+Response:
+
+    gov,nih)/about/97_almanac/almanac97.pdf 20041031172700 http://www.nih.gov/about/97_Almanac/almanac97.pdf application/pdf 200 B6XAXDQ5YA2BD2FC7CWH6HLG7YAGRQT5 1412860
+    gov,nih)/about/almanac/2001/appropriations/appropriations2001.pdf 20041107184849 http://www.nih.gov/about/almanac/2001/appropriations/appropriations2001.pdf application/pdf 200 YQNM4XRHFNFUC3RPAERP7T6F7OWS6TDQ 49644
+    gov,nih)/about/almanac/almanac_2006_2007.pdf 20070824135850 http://www.nih.gov/about/almanac/Almanac_2006_2007.pdf application/pdf 200 Q33VZSPQ7EUOVJ7PLGGFGLYRS4466FGV 2005821
+    gov,nih)/about/almanac/almanac_2008_2009.pdf 20081029135142 http://www.nih.gov/about/almanac/Almanac_2008_2009.pdf application/pdf 200 CNYNO3S7OWTPSYCJKIT2LCJTMDKZJ3WI 2610665
+    gov,nih)/about/almanac/archive/2001/appropriations/appropriations2001.pdf 20080924150457 http://www.nih.gov/about/almanac/archive/2001/appropriations/appropriations2001.pdf application/pdf 200 YQNM4XRHFNFUC3RPAERP7T6F7OWS6TDQ 49675
+
+**The same as the previous example, but dump the URLs only** (for example to feed into a download script)
+
+Request: <http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&matchType=host&collapse=digest&filter=mimetype:application/pdf&fl=original>
+
+Response:
+
+    http://dpcpsi.nih.gov/collaboration/2007_Report_of_Trans-NIH_Research.pdf
+    http://dpcpsi.nih.gov/collaboration/2008_Report_of_Trans-NIH_Research.pdf
+    http://dpcpsi.nih.gov/collaboration/2009_Report_of_Trans-NIH_Research.pdf
+    http://dpcpsi.nih.gov/collaboration/Trans-NIH_Research.pdf
+    http://dpcpsi.nih.gov/council/110807minutes.pdf
+
+## Common pitfalls
+
+## Worked examples

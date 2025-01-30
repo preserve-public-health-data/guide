@@ -97,7 +97,22 @@
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="worked-examples.html"><a href="worked-examples.html"><i class="fa fa-check"></i><b>5</b> Worked examples</a></li>
-<li class="chapter" data-level="6" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html"><i class="fa fa-check"></i><b>6</b> Downloading from the Internet Archive</a></li>
+<li class="chapter" data-level="6" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html"><i class="fa fa-check"></i><b>6</b> Downloading from the Internet Archive</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#using-the-wayback-machine-web-interface"><i class="fa fa-check"></i><b>6.1</b> Using the Wayback Machine web interface</a></li>
+<li class="chapter" data-level="6.2" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#using-download-scripts"><i class="fa fa-check"></i><b>6.2</b> Using download scripts</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#querying-pages"><i class="fa fa-check"></i><b>6.2.1</b> Querying pages</a></li>
+<li class="chapter" data-level="6.2.2" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#downloading-pages"><i class="fa fa-check"></i><b>6.2.2</b> Downloading pages</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#using-cdx-api"><i class="fa fa-check"></i><b>6.3</b> Using CDX API</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#querying-the-cdx-api"><i class="fa fa-check"></i><b>6.3.1</b> Querying the CDX API</a></li>
+<li class="chapter" data-level="6.3.2" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#examples"><i class="fa fa-check"></i><b>6.3.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#common-pitfalls"><i class="fa fa-check"></i><b>6.4</b> Common pitfalls</a></li>
+<li class="chapter" data-level="6.5" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#worked-examples-1"><i class="fa fa-check"></i><b>6.5</b> Worked examples</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="storage-and-dissemination.html"><a href="storage-and-dissemination.html"><i class="fa fa-check"></i><b>7</b> Storage and dissemination</a></li>
 </ul>
 
@@ -118,7 +133,102 @@
             <section class="normal" id="section-">
 <div id="downloading-from-the-internet-archive" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">6</span> Downloading from the Internet Archive<a href="downloading-from-the-internet-archive.html#downloading-from-the-internet-archive" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="using-the-wayback-machine-web-interface" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Using the Wayback Machine web interface<a href="downloading-from-the-internet-archive.html#using-the-wayback-machine-web-interface" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="using-download-scripts" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Using download scripts<a href="downloading-from-the-internet-archive.html#using-download-scripts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="querying-pages" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Querying pages<a href="downloading-from-the-internet-archive.html#querying-pages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="downloading-pages" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Downloading pages<a href="downloading-from-the-internet-archive.html#downloading-pages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="using-cdx-api" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Using CDX API<a href="downloading-from-the-internet-archive.html#using-cdx-api" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If, for whatever reason, none of the above methods are available (for example on a headless server without the ability to install software), the Wayback Machine CDX API can be used in conjunction with commonly-found command-line utilities to locate files for download. The CDX API may also be useful for writing custom scripts and programs due to its minimal nature.</p>
+<p>This guide will not comprehensively document the CDX API itself as the Internet Archive already maintains <a href="https://archive.org/developers/wayback-cdx-server.html">extensive documentation</a> on their website.</p>
+<div id="querying-the-cdx-api" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Querying the CDX API<a href="downloading-from-the-internet-archive.html#querying-the-cdx-api" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The CDX API endpoint lives at <a href="http://web.archive.org/cdx/search/cdx" class="uri">http://web.archive.org/cdx/search/cdx</a>. The main parameters of interest are:</p>
+<ul>
+<li><code>url</code> (string): The primary filter. Must be <a href="https://en.wikipedia.org/wiki/Percent-encoding">precent-encoded</a>.</li>
+<li><code>matchType</code> (string): Describes how <code>url</code> is matched. The following values will be the most useful:
+<ul>
+<li><code>exact</code>: Results must match <code>url</code> exactly (default if <code>matchType</code> is not provided);</li>
+<li><code>prefix</code>: Results must begin with <code>url</code>.</li>
+</ul></li>
+</ul>
+<p>Other useful parameters:</p>
+<ul>
+<li><code>from</code> and <code>to</code> (integer): Filters the results by date range. Must be given in the form <code>YYYYMMDDhhmmss</code>; partial information is allowed (for example <code>YYYY</code> or <code>YYYYMMDD</code>).</li>
+<li><code>limit</code> (integer): Limits the number of results returned. The CDX API docs note that <em>“the CDX server may return millions or billions of record[s]”</em>, so this may be necessary for larger or older sites.</li>
+<li><code>fl</code> (one or more strings, comma-separated): Chooses which fields are returned, and in what order. The most useful fields are:
+<ul>
+<li><code>timestamp</code>: The timestamp of the capture, formatted as <code>YYYMMDDhhmmss</code>.</li>
+<li><code>original</code>: The original URL. Not ideal for filtering due to things like port specification; see <code>urlkey</code> instead.</li>
+<li><code>mimetype</code>: The <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types/Common_types">MIME type</a> string.</li>
+<li><code>urlkey</code> and <code>"digest"</code>: The standardized URL and a checksum of the content, respectively. Useful for filtering out all duplicated URLs (<code>urlkey</code>) or only duplicated URLs with the same content (<code>digest</code>).</li>
+</ul></li>
+<li><code>collapse</code> (string): Filters out results by the given field, returning only the first when ordered by date. See above for fields that can be passed to <code>collapse</code>.</li>
+<li><code>filter</code> (string formatted like <code>[!]field:regex</code>): Use <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> to filter based on field values.</li>
+</ul>
+<p>Most common requests will take the form of <code>http://web.archive.org/cdx/search/cdx?url=[URL]&amp;matchType=prefix</code>, which will return all URLs beginning with <code>[URL]</code>. Outputs are sorted by URL and date.</p>
+</div>
+<div id="examples" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Examples<a href="downloading-from-the-internet-archive.html#examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Note: <code>&amp;limit=5</code> has been appended to all example request URLs.</p>
+<p><strong>Return all URLs beginning with <code>nih.gov</code></strong></p>
+<p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host" class="uri">http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host</a></p>
+<p>Response:</p>
+<pre><code>gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
+gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
+gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
+gov,nih)/ 19980204234008 http://www.nih.gov:80/ text/html 200 343MBBETTNE43WB6TJSCIIGQSPVRG6AY 1992
+gov,nih)/ 19981212031409 http://www.nih.gov:80/ text/html 200 WA4UOXZMXJYHIIYABQCZB7MXJBURXNR6 2635</code></pre>
+<p><strong>Return all URLs beginning with <code>nih.gov</code>, dropping URLs that have the same content</strong></p>
+<p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=digest" class="uri">http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=digest</a></p>
+<p>Response:</p>
+<pre><code>gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
+gov,nih)/ 19980204234008 http://www.nih.gov:80/ text/html 200 343MBBETTNE43WB6TJSCIIGQSPVRG6AY 1992
+gov,nih)/ 19981212031409 http://www.nih.gov:80/ text/html 200 WA4UOXZMXJYHIIYABQCZB7MXJBURXNR6 2635
+gov,nih)/ 19990117023817 http://nih.gov:80/ text/html 200 4LFPLNNQ67M6LJT3LZBBNT3RNZKUJLXS 2604
+gov,nih)/ 19990125091117 http://nih.gov:80/ text/html 200 VY6HRTZDJND4JKWNMAVH43OBEV5HKR5B 2744</code></pre>
+<p>Note that 3 records with duplicate content have been dropped between the previous request and this one.</p>
+<p><strong>Return all unique URLs beginning with <code>nih.gov</code></strong></p>
+<p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=urlkey&amp;limit=5" class="uri">http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=urlkey&amp;limit=5</a></p>
+<p>Response:</p>
+<pre><code>gov,nih)/ 19971210191959 http://www.nih.gov:80/ text/html 200 VQYSXO37KW53LD7HTFOTW5PN5VF74CSM 1977
+gov,nih)/!%0d%0a%20medlinep 20210505215349 http://nih.gov/!%0D%0A%20medlinep text/html 301 PAJQC5WJFC6FWJIM7WZA7WU2SW5AU43R 440
+gov,nih)/!clearcommunication/plainlanguage/index.htm 20240816204904 https://www.nih.gov/!clearcommunication/plainlanguage/index.htm text/html 404 WLBW2ZNS7QAI6LLO3D6CLUYLU5SKQEXJ 8042
+gov,nih)/!clearcommunication/plainlanguage/index.htm!figure 20240816203157 http://www.nih.gov/!clearcommunication/plainlanguage/index.htm!Figure unk 301 3I42H3S6NNFQ2MSVX7XZKYAYSCX5QBYJ 259
+gov,nih)/&quot; 20000201081541 http://www.nih.gov:80/%22 text/html 404 UDSH36NBYWO2X73LNMX2LEHLNQ7FYXHZ 326</code></pre>
+<p><strong>Return all unique PDF files (MIME type: <code>application/pdf</code>) beginning with <code>nih.gov</code></strong></p>
+<p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=urlkey&amp;filter=mimetype:application/pdf" class="uri">http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host&amp;collapse=urlkey&amp;filter=mimetype:application/pdf</a></p>
+<p>Response:</p>
+<pre><code>gov,nih)/about/97_almanac/almanac97.pdf 20041031172700 http://www.nih.gov/about/97_Almanac/almanac97.pdf application/pdf 200 B6XAXDQ5YA2BD2FC7CWH6HLG7YAGRQT5 1412860
+gov,nih)/about/almanac/2001/appropriations/appropriations2001.pdf 20041107184849 http://www.nih.gov/about/almanac/2001/appropriations/appropriations2001.pdf application/pdf 200 YQNM4XRHFNFUC3RPAERP7T6F7OWS6TDQ 49644
+gov,nih)/about/almanac/almanac_2006_2007.pdf 20070824135850 http://www.nih.gov/about/almanac/Almanac_2006_2007.pdf application/pdf 200 Q33VZSPQ7EUOVJ7PLGGFGLYRS4466FGV 2005821
+gov,nih)/about/almanac/almanac_2008_2009.pdf 20081029135142 http://www.nih.gov/about/almanac/Almanac_2008_2009.pdf application/pdf 200 CNYNO3S7OWTPSYCJKIT2LCJTMDKZJ3WI 2610665
+gov,nih)/about/almanac/archive/2001/appropriations/appropriations2001.pdf 20080924150457 http://www.nih.gov/about/almanac/archive/2001/appropriations/appropriations2001.pdf application/pdf 200 YQNM4XRHFNFUC3RPAERP7T6F7OWS6TDQ 49675</code></pre>
+<p><strong>The same as the previous example, but dump the URLs only</strong> (for example to feed into a download script)</p>
+<p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&amp;matchType=host&amp;collapse=digest&amp;filter=mimetype:application/pdf&amp;fl=original" class="uri">http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&amp;matchType=host&amp;collapse=digest&amp;filter=mimetype:application/pdf&amp;fl=original</a></p>
+<p>Response:</p>
+<pre><code>http://dpcpsi.nih.gov/collaboration/2007_Report_of_Trans-NIH_Research.pdf
+http://dpcpsi.nih.gov/collaboration/2008_Report_of_Trans-NIH_Research.pdf
+http://dpcpsi.nih.gov/collaboration/2009_Report_of_Trans-NIH_Research.pdf
+http://dpcpsi.nih.gov/collaboration/Trans-NIH_Research.pdf
+http://dpcpsi.nih.gov/council/110807minutes.pdf</code></pre>
+</div>
+</div>
+<div id="common-pitfalls" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Common pitfalls<a href="downloading-from-the-internet-archive.html#common-pitfalls" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="worked-examples-1" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Worked examples<a href="downloading-from-the-internet-archive.html#worked-examples-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
+</div>
 </div>
             </section>
 
