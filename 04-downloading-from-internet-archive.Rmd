@@ -8,9 +8,11 @@
 
 ### Downloading pages
 
-## Using CDX API
+## Using the CDX API
 
 If, for whatever reason, none of the above methods are available (for example on a headless server without the ability to install software), the Wayback Machine CDX API can be used in conjunction with commonly-found command-line utilities to locate files for download. The CDX API may also be useful for writing custom scripts and programs due to its minimal nature.
+
+Briefly, the CDX API allows access to the indices that the Wayback Machine uses internally to keep track of and query archived URLs.
 
 This guide will not comprehensively document the CDX API itself as the Internet Archive already maintains [extensive documentation](https://archive.org/developers/wayback-cdx-server.html) on their website.
 
@@ -104,5 +106,36 @@ Response:
     http://dpcpsi.nih.gov/council/110807minutes.pdf
 
 ## Common pitfalls
+
+### Non-nested websites and externally-linked resources
+
+Many of the common download tools and interfaces for interacting with the Internet Archive (including the CDX API) do not play well with sites whose content is not strictly nested. By this, we mean sites that utilise webpages that pull resources from:
+
+- Other paths / domains of the same site, or
+- Other sites entirely, such as content delivery networks.
+
+For example, the homepage of the NIH Sexual & Gender Minority Research office, which used to live at <https://dpcpsi.nih.gov/sgmro>, linked resources from:
+
+- <https://dpcpsi.nih.gov/sites> (embedded images),
+- <https://dpcpsi.nih.gov/themes> (stylesheets), and
+- <https://dpcpsi.nih.gov/core> (scripts),
+
+all of which are located on different directory trees and so would not show up in queries of `dpcpsi.nih.gov/sgmro`. 
+
+This issue is more prevalent on sites that make use of content management systems like Drupal or WordPress and sites that use website building and hosting services such as those offered by Wix.com and Squarespace.
+
+The most straightforward way to work around this issue is to:
+
+1. Query all HTML files from the site of interest, which should hopefully be nested;
+2. Download all of the returned URLs; and
+3. Parse the the downloaded HTML files to identify tags of interest and the URLs that they link to.
+
+For example, the following `bash` + `htmlq` code will dump the URLs of images referenced by HTML files in the current directory:
+
+```bash
+find . -name '*.htm*' -print0 |
+    xargs -0 cat |
+    htmlq img -a src
+```
 
 ## Worked examples

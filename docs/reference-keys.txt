@@ -26,9 +26,10 @@ using-the-wayback-machine-web-interface
 using-download-scripts
 querying-pages
 downloading-pages
-using-cdx-api
+using-the-cdx-api
 querying-the-cdx-api
 examples
 common-pitfalls
+non-nested-websites-and-externally-linked-resources
 worked-examples-1
 storage-and-dissemination
