@@ -1,5 +1,7 @@
 # Locating data on live websites
 
+<span style=color:red>Note: this page is under construction (there are no complete sections).</span>
+
 ## File path reverse engineering
 
 ## Inspecting network requests

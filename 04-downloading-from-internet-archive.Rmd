@@ -1,5 +1,7 @@
 # Downloading from the Internet Archive
 
+<span style=color:red>Note: some sections on this page are under construction (sections are complete unless otherwise noted).</span>
+
 ## Using the Wayback Machine web interface
 
 The Wayback Machine web interface can be accessed by navigating to <https://archive.org>. More comprehensive information about the Wayback Machine is available on the [Internet Archive website](https://help.archive.org/help/category/the-wayback-machine/).
@@ -61,20 +63,26 @@ The URLs tab shows all captured URLs that are nested within the current search q
 
 ![](images/4-urls.png)
 
-These results can be browsed and filtered using the pagination links at the bottom right of the page or the filter input box at the top right. Most importantly, results can be filtered by [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types/Common_types), which allow you to locate files of specific file formats.
+These results can be browsed and filtered using the pagination links at the bottom right of the page or the filter input box at the top right. Most importantly, results can be filtered by [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types/Common_types), **or file extensions**, which allow you to locate files of specific file formats.
 
 Some examples of common MIME types:
 
 - PDF files: `application/pdf`
 - ZIP archives: `application/zip` or `application/x-zip-compressed`
+- TAR archives: `application/x-tar` or `application/gzip`
 - CSV files: `text/csv`
+- Text files: `text/plain`
+- SAS and STATA files: `application/octet-stream` or `warc/revisit` (generic MIME types for specialized formats)
 
 Partial matches are also supported. For example:
 
 - `image/` can be used to match any image file.
 - `video/` can be used to match any video file.
+- `application/` can be used to match any files not covered by other categories (for example non-plaintext data files).
 
 ## Using download scripts
+
+<span style=color:red>Note: this section is under construction.</span>
 
 ### Querying pages
 
