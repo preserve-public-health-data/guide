@@ -30,6 +30,7 @@ querying-the-cdx-api
 reconstructing-the-wayback-machine-url-from-cdx-api-output
 examples
 common-pitfalls
+rate-limits
 non-nested-websites-and-externally-linked-resources
 worked-examples
 storage-and-dissemination

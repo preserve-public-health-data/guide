@@ -197,6 +197,17 @@ curl "http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&matchType=host&co
 
 ## Common pitfalls
 
+### Rate limits
+
+The Internet Archive will temporarily block IP addresses that make too many requests in a short amount of time. It's not clear exactly what the rate limit is for different endpoints, but a [15 capture requests per minute](https://archive.org/details/toomanyrequests_20191110) limit is imposed for the Wayback Machine with a penalty of being blocked for 5 minutes for violating.
+
+Care should be taken to:
+
+- Use tools with built-in rate limiting features,
+- Write rate limiting features or the ability to handle [HTTP 429 Too Many Requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) errors into your custom scripts and programs,
+- Limit the number of concurrent requests, and
+- Ensure that only one or a few people are accessing `archive.org` at a time if there are multiple people doing retrieval work from the same network.
+
 ### Non-nested websites and externally-linked resources
 
 Many of the common download tools and interfaces for interacting with the Internet Archive (including the CDX API) do not play well with sites whose content is not strictly nested. By this, we mean sites that utilise webpages that pull resources from:

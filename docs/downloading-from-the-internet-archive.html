@@ -185,7 +185,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#common-pitfalls"><i class="fa fa-check"></i><b>5.4</b> Common pitfalls</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#non-nested-websites-and-externally-linked-resources"><i class="fa fa-check"></i><b>5.4.1</b> Non-nested websites and externally-linked resources</a></li>
+<li class="chapter" data-level="5.4.1" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#rate-limits"><i class="fa fa-check"></i><b>5.4.1</b> Rate limits</a></li>
+<li class="chapter" data-level="5.4.2" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#non-nested-websites-and-externally-linked-resources"><i class="fa fa-check"></i><b>5.4.2</b> Non-nested websites and externally-linked resources</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#worked-examples"><i class="fa fa-check"></i><b>5.5</b> Worked examples</a></li>
 </ul></li>
@@ -370,8 +371,19 @@ http://dpcpsi.nih.gov/council/110807minutes.pdf</code></pre>
 </div>
 <div id="common-pitfalls" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Common pitfalls<a href="downloading-from-the-internet-archive.html#common-pitfalls" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="non-nested-websites-and-externally-linked-resources" class="section level3 hasAnchor" number="5.4.1">
-<h3><span class="header-section-number">5.4.1</span> Non-nested websites and externally-linked resources<a href="downloading-from-the-internet-archive.html#non-nested-websites-and-externally-linked-resources" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="rate-limits" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Rate limits<a href="downloading-from-the-internet-archive.html#rate-limits" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Internet Archive will temporarily block IP addresses that make too many requests in a short amount of time. It’s not clear exactly what the rate limit is for different endpoints, but a <a href="https://archive.org/details/toomanyrequests_20191110">15 capture requests per minute</a> limit is imposed for the Wayback Machine with a penalty of being blocked for 5 minutes for violating.</p>
+<p>Care should be taken to:</p>
+<ul>
+<li>Use tools with built-in rate limiting features,</li>
+<li>Write rate limiting features or the ability to handle <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429">HTTP 429 Too Many Requests</a> errors into your custom scripts and programs,</li>
+<li>Limit the number of concurrent requests, and</li>
+<li>Ensure that only one or a few people are accessing <code>archive.org</code> at a time if there are multiple people doing retrieval work from the same network.</li>
+</ul>
+</div>
+<div id="non-nested-websites-and-externally-linked-resources" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Non-nested websites and externally-linked resources<a href="downloading-from-the-internet-archive.html#non-nested-websites-and-externally-linked-resources" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Many of the common download tools and interfaces for interacting with the Internet Archive (including the CDX API) do not play well with sites whose content is not strictly nested. By this, we mean sites that utilise webpages that pull resources from:</p>
 <ul>
 <li>Other paths / domains of the same site, or</li>
