@@ -13,8 +13,11 @@ httr-httr2
 python
 locating-data-on-live-websites
 file-path-reverse-engineering
-inspecting-network-requests
+collecting-urls
+examples
 using-apis
+inspecting-network-requests
+files-meant-for-web-crawlers
 downloading-from-the-internet-archive
 using-the-wayback-machine-web-interface
 the-search-bar
@@ -28,7 +31,7 @@ downloading-pages
 using-the-cdx-api
 querying-cdx-api
 reconstructing-the-wayback-machine-url-from-cdx-api-output
-examples
+examples-1
 common-pitfalls
 rate-limits
 non-nested-websites-and-externally-linked-resources

@@ -22,7 +22,7 @@
 
 
 
-<meta name="date" content="2025-01-30" />
+<meta name="date" content="2025-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,9 +158,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html"><i class="fa fa-check"></i><b>4</b> Locating data on live websites</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#file-path-reverse-engineering"><i class="fa fa-check"></i><b>4.1</b> File path reverse engineering</a></li>
-<li class="chapter" data-level="4.2" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#inspecting-network-requests"><i class="fa fa-check"></i><b>4.2</b> Inspecting network requests</a></li>
-<li class="chapter" data-level="4.3" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#using-apis"><i class="fa fa-check"></i><b>4.3</b> Using APIs</a></li>
+<li class="chapter" data-level="4.1" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#file-path-reverse-engineering"><i class="fa fa-check"></i><b>4.1</b> File path reverse engineering</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#collecting-urls"><i class="fa fa-check"></i><b>4.1.1</b> Collecting URLs</a></li>
+<li class="chapter" data-level="4.1.2" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#examples"><i class="fa fa-check"></i><b>4.1.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#using-apis"><i class="fa fa-check"></i><b>4.2</b> Using APIs</a></li>
+<li class="chapter" data-level="4.3" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#inspecting-network-requests"><i class="fa fa-check"></i><b>4.3</b> Inspecting network requests</a></li>
+<li class="chapter" data-level="4.4" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#files-meant-for-web-crawlers"><i class="fa fa-check"></i><b>4.4</b> Files meant for web crawlers</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html"><i class="fa fa-check"></i><b>5</b> Downloading from the Internet Archive</a>
 <ul>
@@ -181,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.3.1" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#querying-cdx-api"><i class="fa fa-check"></i><b>5.3.1</b> Querying the CDX API</a></li>
 <li class="chapter" data-level="5.3.2" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#reconstructing-the-wayback-machine-url-from-cdx-api-output"><i class="fa fa-check"></i><b>5.3.2</b> Reconstructing the Wayback Machine URL from CDX API output</a></li>
-<li class="chapter" data-level="5.3.3" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#examples"><i class="fa fa-check"></i><b>5.3.3</b> Examples</a></li>
+<li class="chapter" data-level="5.3.3" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#examples-1"><i class="fa fa-check"></i><b>5.3.3</b> Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#common-pitfalls"><i class="fa fa-check"></i><b>5.4</b> Common pitfalls</a>
 <ul>
@@ -330,8 +335,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>https://web.archive.org/web/[TIMESTAMP]/[ORIGINAL]</code></p>
 <p>where <code>[TIMESTAMP]</code> and <code>[ORIGINAL]</code> are the <code>timestamp</code> and <code>original</code> fields, respectively.</p>
 </div>
-<div id="examples" class="section level3 hasAnchor" number="5.3.3">
-<h3><span class="header-section-number">5.3.3</span> Examples<a href="downloading-from-the-internet-archive.html#examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="examples-1" class="section level3 hasAnchor" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Examples<a href="downloading-from-the-internet-archive.html#examples-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Note: <code>&amp;limit=5</code> has been appended to all example request URLs.</p>
 <p><strong>Return all URLs beginning with <code>nih.gov</code></strong></p>
 <p>Request: <a href="http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host" class="uri">http://web.archive.org/cdx/search/cdx?url=nih.gov&amp;matchType=host</a></p>
@@ -377,11 +382,11 @@ http://dpcpsi.nih.gov/collaboration/Trans-NIH_Research.pdf
 http://dpcpsi.nih.gov/council/110807minutes.pdf</code></pre>
 <p>Note that the above URLs cannot be passed to raw downloaders like <code>wget</code>, <code>aria2</code>, etc. directly if the content is no longer live and are only usable by downloaders like <code>wayback_machine_downloader</code> and <code>waybackpack</code> that are specific to the Internet Archive. See below for an example of how to reconstruct <code>archive.org</code> URLs that can be passed to those tools.</p>
 <p><strong>The same as the previous example, but reconstruct the <code>archive.org</code> URLs using Bash</strong> (for example to feed into a download tool)</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="downloading-from-the-internet-archive.html#cb6-1" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&amp;matchType=host&amp;collapse=digest&amp;filter=mimetype:application/pdf&amp;fl=original&quot;</span> <span class="kw">|</span></span>
-<span id="cb6-2"><a href="downloading-from-the-internet-archive.html#cb6-2" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">IFS</span><span class="op">=</span><span class="st">&quot; &quot;</span> <span class="bu">read</span> <span class="va">urlkey</span> <span class="va">timestamp</span> <span class="va">original</span> <span class="va">mimetype</span> <span class="va">statuscode</span> <span class="va">digest</span> <span class="va">length</span></span>
-<span id="cb6-3"><a href="downloading-from-the-internet-archive.html#cb6-3" tabindex="-1"></a>    <span class="cf">do</span></span>
-<span id="cb6-4"><a href="downloading-from-the-internet-archive.html#cb6-4" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">&quot;https://web.archive.org/web/</span><span class="va">${timestamp}</span><span class="st">/</span><span class="va">${original}</span><span class="st">&quot;</span></span>
-<span id="cb6-5"><a href="downloading-from-the-internet-archive.html#cb6-5" tabindex="-1"></a>    <span class="cf">done</span> <span class="co"># From here, redirect to a file or pipe to a download tool</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="downloading-from-the-internet-archive.html#cb9-1" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;http://web.archive.org/cdx/search/cdx?url=dpcpsi.nih.gov&amp;matchType=host&amp;collapse=digest&amp;filter=mimetype:application/pdf&amp;fl=original&quot;</span> <span class="kw">|</span></span>
+<span id="cb9-2"><a href="downloading-from-the-internet-archive.html#cb9-2" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">IFS</span><span class="op">=</span><span class="st">&quot; &quot;</span> <span class="bu">read</span> <span class="va">urlkey</span> <span class="va">timestamp</span> <span class="va">original</span> <span class="va">mimetype</span> <span class="va">statuscode</span> <span class="va">digest</span> <span class="va">length</span></span>
+<span id="cb9-3"><a href="downloading-from-the-internet-archive.html#cb9-3" tabindex="-1"></a>    <span class="cf">do</span></span>
+<span id="cb9-4"><a href="downloading-from-the-internet-archive.html#cb9-4" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">&quot;https://web.archive.org/web/</span><span class="va">${timestamp}</span><span class="st">/</span><span class="va">${original}</span><span class="st">&quot;</span></span>
+<span id="cb9-5"><a href="downloading-from-the-internet-archive.html#cb9-5" tabindex="-1"></a>    <span class="cf">done</span> <span class="co"># From here, redirect to a file or pipe to a download tool</span></span></code></pre></div>
 </div>
 </div>
 <div id="common-pitfalls" class="section level2 hasAnchor" number="5.4">
@@ -419,9 +424,9 @@ http://dpcpsi.nih.gov/council/110807minutes.pdf</code></pre>
 <li>Parse the the downloaded HTML files to identify tags of interest and the URLs that they link to.</li>
 </ol>
 <p>For example, the following <code>bash</code> + <code>htmlq</code> code will dump the URLs of images referenced by HTML files in the current directory:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="downloading-from-the-internet-archive.html#cb7-1" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">&#39;*.htm*&#39;</span> <span class="at">-print0</span> <span class="kw">|</span></span>
-<span id="cb7-2"><a href="downloading-from-the-internet-archive.html#cb7-2" tabindex="-1"></a>    <span class="fu">xargs</span> <span class="at">-0</span> cat <span class="kw">|</span></span>
-<span id="cb7-3"><a href="downloading-from-the-internet-archive.html#cb7-3" tabindex="-1"></a>    <span class="ex">htmlq</span> img <span class="at">-a</span> src</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="downloading-from-the-internet-archive.html#cb10-1" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">&#39;*.htm*&#39;</span> <span class="at">-print0</span> <span class="kw">|</span></span>
+<span id="cb10-2"><a href="downloading-from-the-internet-archive.html#cb10-2" tabindex="-1"></a>    <span class="fu">xargs</span> <span class="at">-0</span> cat <span class="kw">|</span></span>
+<span id="cb10-3"><a href="downloading-from-the-internet-archive.html#cb10-3" tabindex="-1"></a>    <span class="ex">htmlq</span> img <span class="at">-a</span> src</span></code></pre></div>
 </div>
 </div>
 <div id="worked-examples" class="section level2 hasAnchor" number="5.5">

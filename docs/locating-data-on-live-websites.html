@@ -22,7 +22,7 @@
 
 
 
-<meta name="date" content="2025-01-30" />
+<meta name="date" content="2025-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,9 +158,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html"><i class="fa fa-check"></i><b>4</b> Locating data on live websites</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#file-path-reverse-engineering"><i class="fa fa-check"></i><b>4.1</b> File path reverse engineering</a></li>
-<li class="chapter" data-level="4.2" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#inspecting-network-requests"><i class="fa fa-check"></i><b>4.2</b> Inspecting network requests</a></li>
-<li class="chapter" data-level="4.3" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#using-apis"><i class="fa fa-check"></i><b>4.3</b> Using APIs</a></li>
+<li class="chapter" data-level="4.1" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#file-path-reverse-engineering"><i class="fa fa-check"></i><b>4.1</b> File path reverse engineering</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#collecting-urls"><i class="fa fa-check"></i><b>4.1.1</b> Collecting URLs</a></li>
+<li class="chapter" data-level="4.1.2" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#examples"><i class="fa fa-check"></i><b>4.1.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#using-apis"><i class="fa fa-check"></i><b>4.2</b> Using APIs</a></li>
+<li class="chapter" data-level="4.3" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#inspecting-network-requests"><i class="fa fa-check"></i><b>4.3</b> Inspecting network requests</a></li>
+<li class="chapter" data-level="4.4" data-path="locating-data-on-live-websites.html"><a href="locating-data-on-live-websites.html#files-meant-for-web-crawlers"><i class="fa fa-check"></i><b>4.4</b> Files meant for web crawlers</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html"><i class="fa fa-check"></i><b>5</b> Downloading from the Internet Archive</a>
 <ul>
@@ -181,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.3.1" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#querying-cdx-api"><i class="fa fa-check"></i><b>5.3.1</b> Querying the CDX API</a></li>
 <li class="chapter" data-level="5.3.2" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#reconstructing-the-wayback-machine-url-from-cdx-api-output"><i class="fa fa-check"></i><b>5.3.2</b> Reconstructing the Wayback Machine URL from CDX API output</a></li>
-<li class="chapter" data-level="5.3.3" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#examples"><i class="fa fa-check"></i><b>5.3.3</b> Examples</a></li>
+<li class="chapter" data-level="5.3.3" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#examples-1"><i class="fa fa-check"></i><b>5.3.3</b> Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="downloading-from-the-internet-archive.html"><a href="downloading-from-the-internet-archive.html#common-pitfalls"><i class="fa fa-check"></i><b>5.4</b> Common pitfalls</a>
 <ul>
@@ -218,15 +223,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="locating-data-on-live-websites" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">4</span> Locating data on live websites<a href="locating-data-on-live-websites.html#locating-data-on-live-websites" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><span style="color:red">Note: this page is under construction (there are no complete sections).</span></p>
+<p><span style="color:red">Note: some sections on this page are under construction (sections are complete unless otherwise noted).</span></p>
+<p>Except for sites that host large quantities of files, it may not always be easy to compile a list of what to download. On sites like these, download tools and scripts may not be able to discover all of the URLs that you want to collect and require some assistance.</p>
 <div id="file-path-reverse-engineering" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> File path reverse engineering<a href="locating-data-on-live-websites.html#file-path-reverse-engineering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In many cases, files served by websites are named in a systematic way. By collecting a few URLs pointing to files from the same website / collection, we might be able to discover a pattern that can be used to build a list of URLS to download and use that list to retrieve the data in a programmatic way.</p>
+<p>The most straightforward way to discover patterns like these is to paste the links into a text document, ensure that a <a href="https://en.wikipedia.org/wiki/Monospaced_font">fixed width/monospace font</a> is used, and inspect the links visually. In most cases, the pattern (if any) should become quickly apparent. Otherwise, advanced diff tools and libraries like Python’s <a href="https://docs.python.org/3/library/difflib.html">difflib</a> may be useful.</p>
+<div id="collecting-urls" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Collecting URLs<a href="locating-data-on-live-websites.html#collecting-urls" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Most of the time, you can just copy and paste URLs straight from a web page into a text document. However, sometimes, these URLs are hidden behind portals or other interactive websites. In these cases, first download a few files, then copy the URLs from your browser’s download history.</p>
+<p>See below for some examples of what this might look like:</p>
+<div class="float">
+<img src="images/3-copy-download-url-firefox.png" alt="Copying a download link the download history in Firefox, accessible by right-clicking on a downloaded file." />
+<div class="figcaption">Copying a download link the download history in Firefox, accessible by right-clicking on a downloaded file.</div>
 </div>
-<div id="inspecting-network-requests" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Inspecting network requests<a href="locating-data-on-live-websites.html#inspecting-network-requests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="float">
+<img src="images/3-copy-download-url-chrome.png" alt="Copying a download link via the download history in Google Chrome." />
+<div class="figcaption">Copying a download link via the download history in Google Chrome.</div>
 </div>
-<div id="using-apis" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Using APIs<a href="locating-data-on-live-websites.html#using-apis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="examples" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Examples<a href="locating-data-on-live-websites.html#examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <a href="https://www.census.gov/cgi-bin/geo/shapefiles/index.php">U.S. Census Bureau TIGER/Line files</a> are named as follows: <code>tl_[YEAR]_[FIPS]_[LEVEL].zip</code>, for example:</p>
+<pre><code>https://www2.census.gov/geo/tiger/TIGER2010/TABBLOCK/2000/tl_2010_01_tabblock00.zip
+https://www2.census.gov/geo/tiger/TIGER2010/TABBLOCK/2000/tl_2010_02_tabblock00.zip
+https://www2.census.gov/geo/tiger/TIGER2010/TRACT/2010/tl_2010_01_tract10.zip
+https://www2.census.gov/geo/tiger/TIGER2010/TRACT/2010/tl_2010_02_tract10.zip
+https://www2.census.gov/geo/tiger/TIGER2020/TRACT/tl_2020_01_tract.zip
+https://www2.census.gov/geo/tiger/TIGER2020/TRACT/tl_2020_01_tract.zip</code></pre>
+<p>The <a href="https://www.cdc.gov/brfss/annual_data/annual_data.htm">CDC BRFSS Annual Data</a> URLs take the following form: <code>https://www.cdc.gov/brfss/annual_data/[YEAR]/files/LLCP[YEAR]ASC.zip</code>, for example:</p>
+<pre><code>https://www.cdc.gov/brfss/annual_data/2023/files/LLCP2023ASC.zip
+https://www.cdc.gov/brfss/annual_data/2016/files/LLCP2016ASC.zip</code></pre>
+<p><a href="https://lpdaac.usgs.gov/products/mod13a3v061/">Vegetation indices from NASA</a> URLs take the following form: <code>https://e4ftl01.cr.usgs.gov/MOLT/MOD13A3.061/[YEAR].[MONTH].[DAY}/MOD13A3.A[YEAR][DAY OF YEAR].h[GRANULE H COMPONENT]v[GRANULE V COMPONENT].061.2020048131446.hdf</code>, for example:</p>
+<pre><code>https://e4ftl01.cr.usgs.gov/MOLT/MOD13A3.061/2000.02.01/MOD13A3.A2000032.h00v08.061.2020048131443.hdf
+https://e4ftl01.cr.usgs.gov/MOLT/MOD13A3.061/2000.02.01/MOD13A3.A2000032.h18v07.061.2020048131446.hdf
+https://e4ftl01.cr.usgs.gov/MOLT/MOD13A3.061/2000.03.01/MOD13A3.A2000061.h18v00.061.2020041171328.hdf</code></pre>
+</div>
+</div>
+<div id="using-apis" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Using APIs<a href="locating-data-on-live-websites.html#using-apis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span style="color:red">Note: this section is under construction.</span></p>
+</div>
+<div id="inspecting-network-requests" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Inspecting network requests<a href="locating-data-on-live-websites.html#inspecting-network-requests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span style="color:red">Note: this section is under construction.</span></p>
+<p>Sometimes, data may be presented via a web interface such as an interactive map, table, or other visualization tool that retrieves data interactively (for example, as you navigate) but does not present any download links. These are often driven by public-facing APIs that can be exposed and probed using your browser’s network inspector. However, unlike publicly-documented APIs, these APIs may only be documented internally and may require some reverse engineering to understand how they work.</p>
+<p><span style="color:red">Screenshots and instructions of how to open and use the network inspectors of different browsers will go here.</span></p>
+<p>As with file path reverse engineering, the best way to reverse engineer an API is to:</p>
+<ol style="list-style-type: decimal">
+<li>Try out different features of whatever interactive tool is using the API,</li>
+<li>Collect the URLs of HTTP requests that get sent as a result of your actions,</li>
+<li>Paste both the URLs and details of the actions that triggered their requests into a word document, perhaps sorted by action (as with file path reverse engineering, ensure that a <a href="https://en.wikipedia.org/wiki/Monospaced_font">fixed width/monospace font</a> is used), and</li>
+<li>Scan the document for any patterns that emerge.</li>
+</ol>
+</div>
+<div id="files-meant-for-web-crawlers" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Files meant for web crawlers<a href="locating-data-on-live-websites.html#files-meant-for-web-crawlers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span style="color:red">Note: this section is under construction.</span></p>
+<p>Most high-traffic websites make use of standards such as <a href="https://en.wikipedia.org/wiki/Sitemaps">Sitemaps</a> and <a href="https://en.wikipedia.org/wiki/Robots.txt">robots.txt</a> that instruct automated web crawlers how to interface with the site in an efficient way. These files can be accessed by appending <code>sitemap.xml</code> or <code>robots.txt</code>, respectively, to the root of the website URL. For example:</p>
+<ul>
+<li><a href="https://www.nih.gov/" class="uri">https://www.nih.gov/</a>: <a href="https://www.nih.gov/sitemap.xml" class="uri">https://www.nih.gov/sitemap.xml</a> and <a href="https://www.nih.gov/robots.txt" class="uri">https://www.nih.gov/robots.txt</a></li>
+<li><a href="https://www.cdc.gov/" class="uri">https://www.cdc.gov/</a>: <a href="https://www.cdc.gov/robots.txt" class="uri">https://www.cdc.gov/robots.txt</a> and <a href="https://www.cdc.gov/wcms-auto-sitemap-index.xml" class="uri">https://www.cdc.gov/wcms-auto-sitemap-index.xml</a> (discovered via the <code>robots.txt</code>)</li>
+</ul>
+<p>By inspecting these files, we can learn more about what pages are available.</p>
 
 </div>
 </div>
